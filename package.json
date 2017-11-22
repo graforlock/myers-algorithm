@@ -1,0 +1,22 @@
+{
+  "name": "diff-algo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "diff-algo.js",
+  "scripts": {
+    "start": "browserify example.js -o bundle.js && lite-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bel": "^5.1.5",
+    "browserify": "^14.5.0",
+    "jest": "^21.2.1",
+    "lite-server": "^2.3.0"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  }
+}
