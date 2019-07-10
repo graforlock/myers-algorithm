@@ -1,4 +1,17 @@
-function diff (a, b, cmp) {
+// @flow
+
+interface Enumerable<T> {
+  length: number;
+  [number]: T;
+}
+
+type Callback = (x1: number, y1: number, x2: number, y2: number) => void;
+
+type Comparator<T> = (x: T, y: T) => boolean;
+
+type Matrix = Array<Array<number>>;
+
+function diff<T> (a: Enumerable<T>, b: Enumerable<T>, cmp: Comparator<T>): Matrix  {
   cmp = cmp || function (a, b) { return a === b }
   var n = a.length
   var m = b.length
@@ -34,17 +47,19 @@ function diff (a, b, cmp) {
       if (x >= n && y >= m) return trace
     }
   }
+
+  return trace
 }
 
-function tracePath (a, b, cb, cmp) {
-  var x = a.length
-  var y = b.length
+function tracePath<T> (a: Enumerable<T>, b: Enumerable<T>, cb: Callback, cmp: Comparator<T>) {
+  var x: number = a.length
+  var y: number = b.length
   var k, addK, remK, prevX, prevY, prevK, _prevK
 
-  var shortestEdit = diff(a, b, cmp)
+  var shortestEdit: Matrix = diff(a, b, cmp)
 
   for (var d = shortestEdit.length - 1; d >= 0; d--) {
-    var v = shortestEdit[d]
+    var v: Array<number> = shortestEdit[d]
     var len = v.length
 
     k = x - y
@@ -76,4 +91,4 @@ function tracePath (a, b, cb, cmp) {
   }
 }
 
-module.exports = tracePath
+export default tracePath

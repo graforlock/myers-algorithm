@@ -4,13 +4,20 @@
   "description": "",
   "main": "diff-algo.js",
   "scripts": {
-    "start": "browserify example.js -o bundle.js && lite-server"
+    "build:umd": "babel index.js --presets @babel/preset-flow --plugins @babel/plugin-transform-modules-umd -o dist/index-umd.js",
+    "example": "babel index.js --presets @babel/preset-flow -o dist/index-es6.js && lite-server"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/plugin-transform-modules-umd": "^7.2.0",
+    "@babel/preset-flow": "^7.0.0",
     "bel": "^5.1.5",
     "browserify": "^14.5.0",
+    "flow-bin": "^0.102.0",
+    "flow-remove-types": "^2.102.0-rc",
     "jest": "^21.2.1",
     "lite-server": "^2.3.0"
   },

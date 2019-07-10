@@ -1,10 +1,12 @@
-var tracePath = require('./')
+// @flow
+
+import tracePath from './dist/index-es6.js'
 
 var nodeA = document.querySelector('#node-1')
 var nodeB = document.querySelector('#node-2')
 
-var oldChildren = nodeA.childNodes
-var newChildren = nodeB.childNodes
+var oldChildren = nodeA ? nodeA.childNodes : []
+var newChildren = nodeB ? nodeB.childNodes : []
 var diffPath = []
 
 function applyDiff (parent, a, b, diff, update) {
@@ -25,19 +27,25 @@ function applyDiff (parent, a, b, diff, update) {
 }
 
 function canPatch (nodeA, nodeB) {
-  if (nodeA.tagName === nodeB.tagName) return true
+  if (nodeA.nodeName === nodeB.nodeName) return true
 
   return false
 }
 
-tracePath(oldChildren, newChildren, function (px, py, x, y) {
-  if (x === px) {
-    diffPath.unshift('INSERT')
-  } else if (y === py) {
-    diffPath.unshift('DELETE')
-  } else {
-    diffPath.unshift('UPDATE')
-  }
-}, canPatch)
+if(nodeA !== null) {
+  tracePath(oldChildren, newChildren, function (px, py, x, y) {
+    if (x === px) {
+      diffPath.unshift('INSERT')
+    } else if (y === py) {
+      diffPath.unshift('DELETE')
+    } else {
+      diffPath.unshift('UPDATE')
+    }
+  }, canPatch)
+  
+  applyDiff(nodeA, oldChildren, newChildren, diffPath, function (a, b) {
+    a.textContent = b.textContent
+  })
+}
 
-applyDiff(nodeA, oldChildren, newChildren, diffPath, function (a, b) { console.log(a, b) })
+
