@@ -46,6 +46,7 @@ if(nodeA !== null) {
   applyDiff(nodeA, oldChildren, newChildren, diffPath, function (a, b) {
     a.textContent = b.textContent
   })
+  
 }
 
 window.tracePath = tracePath;
