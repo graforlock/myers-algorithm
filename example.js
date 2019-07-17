@@ -48,4 +48,6 @@ if(nodeA !== null) {
   })
 }
 
+window.tracePath = tracePath;
+
 
